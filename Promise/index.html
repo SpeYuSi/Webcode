@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+          <meta charset="UTF-8">
+          <title>Demo</title>
+          <script>
+          window.onload=function() {
+        /*  var p1 = new Promise(function (resolve, reject) {
+          setTimeout(resolve, 500, 'P1');
+          });
+          var p2 = new Promise(function (resolve, reject) {
+          setTimeout(resolve, 600, 'P2');
+          });
+          // 同时执行p1和p2，并在它们都完成后执行then:
+          //promise.all()接收一个数组
+          /!*  Promise.all([p1,p2]).then(function (results) {
+          console.log(results); // 获得一个Array: ['P1', 'P2']
+          });*!/
+            Promise.race([p1,p2]).then(function (results) {
+                console.log(results); // 获得一个Array: ['P1', 'P2']
+            });*/
+
+
+              var logging = document.getElementById('div1');
+             while (logging.children.length > 1) {
+             logging.removeChild(logging.children[logging.children.length - 1]);
+             }
+
+            function log(s) {
+                var p = document.createElement('p');
+                p.innerHTML = s;
+                logging.appendChild(p);
+            }
+            // 0.5秒后作为resolve返回input*input的计算结果:
+            function multiply(input) {
+                return new Promise(function (resolve, reject) {
+             console.log('calculating ' + input + ' x ' + input + '...');
+
+                    setTimeout(resolve, 500, input * input);
+
+                });
+            }
+
+            // 0.5秒后返回input+input的计算结果:
+            function add(input) {
+                return new Promise(function (resolve, reject) {
+             console.log('calculating ' + input + ' + ' + input + '...');
+                    setTimeout(resolve, 500, input + input);
+                });
+            }
+
+            var p = new Promise(function (resolve, reject) {
+             console.log('start new Promise...');
+                resolve(12);
+            });
+
+            p.then(multiply)
+                .then(add)
+                .then(multiply)
+                .then(add)
+                .then(function (result) {
+             console.log('Got value: ' + result);
+                });
+
+            /*function test(resolve, reject) {
+                var timeOut = Math.random() * 2;
+                console.log('set timeout to: ' + timeOut + ' seconds.');
+                setTimeout(function () {
+                    if (timeOut < 1) {
+                        console.log('call resolve()...');
+                        resolve('200 OK');
+                    }
+                    else {
+                        console.log('call reject()...');
+                        reject('timeout in ' + timeOut + ' seconds.');
+                    }
+                }, timeOut * 1000);
+            }
+            var p1 = new Promise(test);
+            p1.then(function (result) {
+                console.log('成功：' + result);
+            },function (reason) {
+                console.log('失败：' + reason);
+            });
+*/
+            /* 测试回调
+
+            function callback() {
+                console.log('Done');
+            }
+            console.log('before setTimeout()');
+            setTimeout(callback, 1000); // 1秒钟后调用callback函数
+            console.log('after setTimeout()');
+        */
+       }
+    </script>
+</head>
+<body>
+<div id="div1">
+
+</div>
+</body>
+</html>
