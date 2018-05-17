@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <script>
+        window.onload=function () {
+
+
+            function success(text) {
+                var p = document.getElementById('txt');
+                p.innerText = text;
+            }
+
+            function fail(code) {
+                var p = document.getElementById('txt');
+                p.innerText = 'Error code: ' + code;
+            }
+
+            // 新建XMLHttpRequest对象
+            var request;
+            if (window.XMLHttpRequest) {
+                request = new XMLHttpRequest();
+            } else {
+                request = new ActiveXObject('Microsoft.XMLHTTP');
+            }
+
+            //设置回调函数，在回调函数中使用request.readyState === 4来判断请求是否完成
+            //如果已完成，再根据status === 200判断是否是一个成功的响应
+            request.onreadystatechange = function () {
+                // 状态发生变化时，函数被回调
+                if (request.readyState === 4) { // 成功完成
+                    // 判断响应结果:
+                    if (request.status === 200) {
+                        // 成功，通过request.responseText拿到响应的文本:
+                        return success(request.responseText);
+                    } else {
+                        // 失败，根据响应码判断失败原因:
+                        return fail(request.status);
+                    }
+                } else {
+
+                    // HTTP请求还在继续...
+                }
+            }
+
+            // 发送请求:
+            request.open('GET', 'http://localhost:63342/WEBcode/test/my.xml');
+            //open方法有3个参数，第一个参数指定是get还是post第二个参数指定URL地址(与当前地址要完全相同)，第三个参数指定是否使用异步默认true
+            request.send();
+            //发送请求
+
+            alert('请求已发送，请等待响应...');
+        }
+
+    </script>
+</head>
+<body>
+<div >
+    <p id="txt" style="color: red"></p>
+</div>
+</body>
+</html>
