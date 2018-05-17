@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>绘制文本demo</title>
+    <script>
+        window.onload=function() {
+
+            var canv = document.getElementById('can');
+            ctx = canv.getContext('2d');
+            ctx.clearRect(0, 0, canv.width, canv.height);
+            ctx.shadowOffsetX = 2;
+            ctx.shadowOffsetY = 2;
+            ctx.shadowColor = '#666666';
+            ctx.font = '24px Arial';
+            ctx.fillStyle = '#333333';
+            ctx.fillText('带阴影的文字', 20, 40);
+        }
+    </script>
+</head>
+<body>
+<canvas id="can">
+    <p>你的浏览器不支持canvas</p>
+</canvas>
+</body>
+</html>
